@@ -13,33 +13,25 @@ import android.annotation.TargetApi;
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        webView = new WebView(this);
+        webView=new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
-
-        final Activity activity = this;
-
+        final Activity activity=this;
         webView.setWebViewClient(new WebViewClient() {
             @SuppressWarnings("deprecation")
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            public void onReceivedError(WebView view,int errorCode,String description,String failingUrl) {
                 Toast.makeText(activity, description, Toast.LENGTH_SHORT).show();
             }
             @TargetApi(android.os.Build.VERSION_CODES.M)
             @Override
-            public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
-                // Redirect to deprecated method, so you can use it in all SDK versions
+            public void onReceivedError(WebView view,WebResourceRequest req,WebResourceError rerr){
                 onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
             }
         });
-
         webView.loadUrl("https://yandex.ru/games/app/145088");
-
         setContentView(webView);
     }
-
 }
